@@ -6,17 +6,236 @@
         xmlns:local="clr-namespace:WpfProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="500">
+
+    <Window.Resources>
+        <local:RankRowConverter x:Key="rankRowConverter"/>
+        <local:FileColumnConverter x:Key="fileColumnConverter"/>
+    </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="400*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="400*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <ListBox x:Name="BoardList"
+                ItemsSource="{Binding BoardItems}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Image>
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Pawn}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.White}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/w_pawn.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Pawn}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.Black}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/b_pawn.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Rook}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.White}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/w_rook.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Rook}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.Black}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/b_rook.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Knight}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.White}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/w_knight.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Knight}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.Black}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/b_knight.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Bishop}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.White}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/w_bishop.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Bishop}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.Black}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/b_bishop.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.King}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.Black}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/b_king.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.King}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.White}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/w_king.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Queen}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.White}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/w_queen.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ItemType}" 
+                                                   Value="{x:Static Member = local:BoardItemType.Piece}"/>
+                                            <Condition Binding="{Binding Figure}" 
+                                                   Value="{x:Static Member = local:ChessFigure.Queen}"/>
+                                            <Condition Binding="{Binding Color}" 
+                                                   Value="{x:Static Member = local:ChessColor.Black}"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Source" Value="img/b_queen.png"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid Width="400" Height="400" Background="Azure">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                    </Grid>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Row" Value="{Binding Rank,
+                        Converter= {StaticResource rankRowConverter},
+                        Mode = OneWay }"/>
+                    <Setter Property="Grid.Column" Value="{Binding File,
+                        Converter={StaticResource fileColumnConverter},
+                        Mode=OneWay}" />
+                    
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
 
     </Grid>
 
