@@ -6,73 +6,18 @@
         xmlns:local="clr-namespace:WpfProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="500">
-    <UniformGrid Columns="8" Rows="8">
-        
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
-        <Rectangle Fill="WhiteSmoke"/>
-        <Rectangle Fill="DarkBlue"/>
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-    </UniformGrid>
-    
+
+    </Grid>
+
 </Window>
