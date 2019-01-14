@@ -59,5 +59,17 @@ namespace WpfProject
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(Figure)));
             }
         }
+
+        private bool moved = false;
+
+        public bool Moved
+        {
+            get { return moved; }
+            set
+            {
+                moved = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Moved)));
+            }
+        }
     }
 }

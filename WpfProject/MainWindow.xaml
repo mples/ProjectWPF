@@ -14,12 +14,11 @@
     <Grid x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="400*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
 
         <ListBox x:Name="BoardList"
@@ -201,7 +200,7 @@
 
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Width="400" Height="400" Background="Azure">
+                    <Grid Width="400" Height="400" >
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -222,7 +221,9 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        
+                        <Grid.Background>
+                            <ImageBrush ImageSource="img/chess_board.png" Stretch="UniformToFill"/>
+                        </Grid.Background>
                     </Grid>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
@@ -241,7 +242,7 @@
         </ListBox>
 
 
-        <ListView x:Name="movesHistoryListView" Width="200" ItemsSource="{Binding MovesHistory}" Grid.Column="1" >
+        <ListView x:Name="movesHistoryListView"  ItemsSource="{Binding MovesHistory}" Grid.Column="1" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="From File" DisplayMemberBinding="{Binding FromFile}"/>

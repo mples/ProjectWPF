@@ -134,6 +134,7 @@ namespace WpfProject
                 piece.Rank = cell.Rank;
                 piece.File = cell.File;
 
+                piece.Moved = true;
                 swapPlayerColor();
 
             }
@@ -155,7 +156,7 @@ namespace WpfProject
                 piece.Rank = target.Rank;
                 piece.File = target.File;
                 boardItems.Remove(target);
-
+                piece.Moved = true;
                 swapPlayerColor();
             }
         }
@@ -766,6 +767,113 @@ namespace WpfProject
         private List<Pair> getPawnMoves(Piece piece)
         {
             List<Pair> moves = new List<Pair>();
+
+            if (piece.Color == ChessColor.White)
+            {
+
+                Pair coord = new Pair(fileToColumn(piece.File), rankToRow(piece.Rank) - 1);
+
+                if (isValidBoardCoord(coord))
+                {
+                    if (chessBoard[coord.X, coord.Y] == null)
+                    {
+                        moves.Add(new Pair(coord.X, coord.Y));
+                    }
+                }
+
+                if( !piece.Moved)
+                {
+                    coord.Y -= 1;
+
+                    if (isValidBoardCoord(coord))
+                    {
+                        if (chessBoard[coord.X, coord.Y] == null)
+                        {
+                            moves.Add(new Pair(coord.X, coord.Y));
+                        }
+                    }
+                }
+                coord = new Pair(fileToColumn(piece.File) - 1, rankToRow(piece.Rank) - 1);
+
+                if (isValidBoardCoord(coord))
+                {
+                    if (chessBoard[coord.X, coord.Y] != null)
+                    {
+                        Piece p = chessBoard[coord.X, coord.Y];
+                        if (piece.Color != p.Color)
+                        {
+                            moves.Add(new Pair(coord.X, coord.Y));
+                        }
+                    }
+                }
+
+                coord = new Pair(fileToColumn(piece.File) + 1, rankToRow(piece.Rank) - 1);
+
+                if (isValidBoardCoord(coord))
+                {
+                    if (chessBoard[coord.X, coord.Y] != null)
+                    {
+                        Piece p = chessBoard[coord.X, coord.Y];
+                        if (piece.Color != p.Color)
+                        {
+                            moves.Add(new Pair(coord.X, coord.Y));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Pair coord = new Pair(fileToColumn(piece.File), rankToRow(piece.Rank) + 1);
+
+                if (isValidBoardCoord(coord))
+                {
+                    if (chessBoard[coord.X, coord.Y] == null)
+                    {
+                        moves.Add(new Pair(coord.X, coord.Y));
+                    }
+                }
+
+                if (!piece.Moved)
+                {
+                    coord.Y += 1;
+
+                    if (isValidBoardCoord(coord))
+                    {
+                        if (chessBoard[coord.X, coord.Y] == null)
+                        {
+                            moves.Add(new Pair(coord.X, coord.Y));
+                        }
+                    }
+                }
+
+                coord = new Pair(fileToColumn(piece.File) - 1, rankToRow(piece.Rank) + 1);
+
+                if (isValidBoardCoord(coord))
+                {
+                    if (chessBoard[coord.X, coord.Y] != null)
+                    {
+                        Piece p = chessBoard[coord.X, coord.Y];
+                        if (piece.Color != p.Color)
+                        {
+                            moves.Add(new Pair(coord.X, coord.Y));
+                        }
+                    }
+                }
+
+                coord = new Pair(fileToColumn(piece.File) + 1, rankToRow(piece.Rank) + 1);
+
+                if (isValidBoardCoord(coord))
+                {
+                    if (chessBoard[coord.X, coord.Y] != null)
+                    {
+                        Piece p = chessBoard[coord.X, coord.Y];
+                        if (piece.Color != p.Color)
+                        {
+                            moves.Add(new Pair(coord.X, coord.Y));
+                        }
+                    }
+                }
+            }
             return moves;
         }
 
@@ -803,7 +911,7 @@ namespace WpfProject
                     moves.AddRange(getKnightMoves(piece));
                     break;
                 case ChessFigure.Pawn:
-                    moves.AddRange(getKingMoves(piece));
+                    moves.AddRange(getPawnMoves(piece));
                     break;
 
             }
