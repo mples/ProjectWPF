@@ -5,13 +5,14 @@ using System.Collections.ObjectModel;
 
 namespace WpfProject
 {
-    public class ChessLogic
+    public class ChessGame
     {
-        public ChessLogic()
+        public ChessGame()
         {
             chessBoard = new Piece[8,8];
             InitBoard();
             currentPlayerColor = ChessColor.White;
+            movesHistory = new ObservableCollection<MoveRecord>();
         }
         private Piece[,] chessBoard;
 
@@ -22,6 +23,11 @@ namespace WpfProject
             get { return boardItems; }
         }
 
+        private ObservableCollection<MoveRecord> movesHistory;
+        public ObservableCollection<MoveRecord> MovesHistory
+        {
+            get { return movesHistory; }
+        }
         private ChessColor currentPlayerColor;
 
         public ChessColor CurrentPlayerColor
@@ -122,13 +128,96 @@ namespace WpfProject
             {
                 chessBoard[fileToColumn(piece.File), rankToRow(piece.Rank)] = null;
                 chessBoard[fileToColumn(cell.File), rankToRow(cell.Rank)] = piece;
+
+                movesHistory.Add(new MoveRecord(piece.File,piece.Rank, cell.File, cell.Rank) );
+
                 piece.Rank = cell.Rank;
                 piece.File = cell.File;
+
                 swapPlayerColor();
 
             }
         }
 
+        public void move(Piece piece, Piece target)
+        {
+            List<Pair> possibleMoves = getMoves(piece);
+
+            Pair target_coord = new Pair(fileToColumn(target.File), rankToRow(target.Rank));
+
+            if (possibleMoves.Contains(target_coord))
+            {
+                chessBoard[fileToColumn(piece.File), rankToRow(piece.Rank)] = null;
+                chessBoard[fileToColumn(target.File), rankToRow(target.Rank)] = piece;
+
+                movesHistory.Add(new MoveRecord(piece.File, piece.Rank, target.File, target.Rank));
+
+                piece.Rank = target.Rank;
+                piece.File = target.File;
+                boardItems.Remove(target);
+
+                swapPlayerColor();
+            }
+        }
+
+        private bool isChecked()
+        {
+            List<Piece> pieces = getFigures(currentPlayerColor);
+            Piece king = getKing(oppositeColor(currentPlayerColor));
+            Pair king_coord = new Pair(fileToColumn(king.File), rankToRow(king.Rank));
+            foreach(var p in pieces)
+            {
+                List<Pair> moves = getMoves(p);
+                foreach(var m in moves)
+                {
+                    if (m == king_coord)
+                        return true;
+                }
+
+            }
+            return false;
+        }
+
+        private List<Piece> getFigures(ChessColor color)
+        {
+            List<Piece> pieces = new List<Piece>();
+            for(int i = 0; i < 8; ++i)
+            {
+                for (int j = 0; j < 8; ++j)
+                {
+                    Piece p = chessBoard[i, j];
+                    if (p != null && p.Color == color)
+                    {
+                        pieces.Add(p);
+                    }
+                }
+            }
+            return pieces;
+        }
+
+        private ChessColor oppositeColor(ChessColor color)
+        {
+            if (color == ChessColor.White)
+               return ChessColor.Black;
+            else
+               return ChessColor.White;
+        }
+        private Piece getKing(ChessColor color)
+        {
+            for (int i = 0; i < 8; ++i)
+            {
+                for (int j = 0; j < 8; ++j)
+                {
+                    Piece p = chessBoard[i, j];
+                    if (p != null && p.Color == color && p.Figure == ChessFigure.King)
+                    {
+                        return p;
+                    }
+                }
+            }
+            return null;
+
+        }
         private Pair getCoord(IBoardItem item)
         {
             return new Pair(fileToColumn(item.File), rankToRow(item.Rank));
@@ -165,7 +254,11 @@ namespace WpfProject
             chessBoard[fileToColumn(piece.File),rankToRow(piece.Rank)] = piece;
         }
 
+
+
         #region Calculatin Possible Moves
+
+
         private bool isValidBoardCoord(Pair point)
         {
             return (point.X >= 0 && point.X < 8 && point.Y >= 0 && point.Y < 8);

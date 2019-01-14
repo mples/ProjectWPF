@@ -20,14 +20,15 @@ namespace WpfProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ChessLogic chess;
+        private ChessGame chess;
         private ChessTableViewModel chessTableViewModel;
         public MainWindow()
         {
             InitializeComponent();
-            chess = new ChessLogic();
+            chess = new ChessGame();
             chessTableViewModel = new ChessTableViewModel(chess);
             DataContext = chessTableViewModel;
+            movesHistoryListView.DataContext = new MovesHistoryViewModel(chess);
         }
     }
 }

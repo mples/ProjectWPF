@@ -71,10 +71,12 @@
     <Compile Include="BoardItemType.cs" />
     <Compile Include="ChessColor.cs" />
     <Compile Include="ChessFigure.cs" />
-    <Compile Include="ChessLogic.cs" />
+    <Compile Include="ChessGame.cs" />
     <Compile Include="ChessTableViewModel.cs" />
     <Compile Include="IBoardItem.cs" />
     <Compile Include="FileColumnConverter.cs" />
+    <Compile Include="MoveRecord.cs" />
+    <Compile Include="MovesHistoryViewModel.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="RankRowConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -123,8 +125,6 @@
     <Resource Include="img\w_queen.png" />
     <Resource Include="img\w_rook.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,8 +8,8 @@ namespace WpfProject
     {
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 
-        private ChessLogic Chess;
-        public ChessTableViewModel(ChessLogic chess)
+        private ChessGame Chess;
+        public ChessTableViewModel(ChessGame chess)
         {
             BoardItems = chess.BoardItems;
             Chess = chess;
@@ -39,25 +39,22 @@ namespace WpfProject
         {
             set
             {
-                Console.WriteLine("curr color:" + CurrentColor);
                 if (value is Piece)
                 {
                     Piece piece = (Piece)value;
                     if(piece.Color == CurrentColor)
                     {
                         selectedPiece = piece;
-                        Console.WriteLine("selected piece" + CurrentColor);
                     }
-                    else
+                    else if (piece.Color != CurrentColor && selectedPiece != null)
                     {
                         targetPiece = piece;
-                        Console.WriteLine("selected piece target");
+                        Chess.move(selectedPiece, targetPiece);
                     }
                 }
-                else if (value is BoardCell)
+                else if (value is BoardCell && selectedPiece != null && selectedPiece.Color == CurrentColor)
                 {
                     moveCell = (BoardCell)value;
-                    Console.WriteLine("selected cell");
                     Chess.move(selectedPiece, moveCell);
                     
                 }
