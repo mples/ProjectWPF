@@ -75,6 +75,7 @@
     <Compile Include="ChessTableViewModel.cs" />
     <Compile Include="IBoardItem.cs" />
     <Compile Include="FileColumnConverter.cs" />
+    <Compile Include="Pair.cs" />
     <Compile Include="RankRowConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

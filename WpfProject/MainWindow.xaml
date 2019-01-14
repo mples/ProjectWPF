@@ -24,9 +24,11 @@
 
         <ListBox x:Name="BoardList"
                 ItemsSource="{Binding BoardItems}"
+                 SelectedItem="{Binding SeletedBoardItem}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
 
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Image>

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace WpfProject
@@ -7,9 +8,11 @@ namespace WpfProject
     {
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 
-        public ChessTableViewModel()
+        private ChessLogic Chess;
+        public ChessTableViewModel(ChessLogic chess)
         {
-            BoardItems = ChessLogic.InitialBoard();
+            BoardItems = chess.BoardItems;
+            Chess = chess;
         }
         private ObservableCollection<IBoardItem> boardItems;
 
@@ -22,9 +25,43 @@ namespace WpfProject
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(BoardItems)));
             }
         }
-        public string ChessText
+
+        public ChessColor CurrentColor
         {
-            get { return "a"; }
+            get { return Chess.CurrentPlayerColor; }
+        }
+
+        private Piece selectedPiece;
+        private Piece targetPiece;
+        private BoardCell moveCell;
+
+        public IBoardItem SeletedBoardItem
+        {
+            set
+            {
+                Console.WriteLine("curr color:" + CurrentColor);
+                if (value is Piece)
+                {
+                    Piece piece = (Piece)value;
+                    if(piece.Color == CurrentColor)
+                    {
+                        selectedPiece = piece;
+                        Console.WriteLine("selected piece" + CurrentColor);
+                    }
+                    else
+                    {
+                        targetPiece = piece;
+                        Console.WriteLine("selected piece target");
+                    }
+                }
+                else if (value is BoardCell)
+                {
+                    moveCell = (BoardCell)value;
+                    Console.WriteLine("selected cell");
+                    Chess.move(selectedPiece, moveCell);
+                    
+                }
+            }
         }
     }
 }
